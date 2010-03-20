@@ -9,9 +9,11 @@
                     File)))
 
 (defn serve-gengarbage [request]
-  {:status 200
-   :headers {}
-   :body "Garbage all around."})
+  (do
+    (Thread/sleep (rand 1000))
+    {:status 200
+     :headers {}
+     :body "Garbage all around."}))
 
 (defroutes greeter
   (GET "/gengarbage"
