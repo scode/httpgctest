@@ -17,14 +17,26 @@
 
 (defn serve-gengarbage [request]
   (do
-    (gen-recursive-garbage 50 [])
+    (doseq [future (doall (for [i (range 10)] (future (gen-recursive-garbage 50 []))))]
+      @future)
     {:status 200
      :headers {}
      :body "Garbage all around."}))
 
+(def data (ref ["data"]))
+
+(defn serve-gendata [request]
+  (dosync
+   (alter data #(concat %1 (repeat (count %1) "data"))))
+  {:status 200
+   :headers {}
+   :body (str "size is now " (count @data))})
+
 (defroutes greeter
   (GET "/gengarbage"
-       serve-gengarbage))
+       serve-gengarbage)
+  (GET "/gendata"
+       serve-gendata))
 
 (defn -main [& args]
   (run-server {:port 9191}
