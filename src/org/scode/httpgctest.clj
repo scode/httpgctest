@@ -36,11 +36,20 @@
    :headers {}
    :body (str "size is now " (count @data))}))
 
+(defn serve-dropdata [request]
+  (let [old-size (count @data)]
+    (dosync (alter data (fn [d] {})))
+    {:status 200
+     :headers {}
+     :body (str "dropped " old-size)}))
+
 (defroutes greeter
   (GET "/gengarbage"
        serve-gengarbage)
   (GET "/gendata"
-       serve-gendata))
+       serve-gendata)
+  (GET "/dropdata"
+       serve-dropdata))
 
 (defn -main [& args]
   (run-server {:port 9191}
