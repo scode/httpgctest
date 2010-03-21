@@ -1,4 +1,4 @@
-Simple HTTP server to experimenting with GC behavior.
+Simple HTTP server indended for experimenting with GC behavior.
 
 Intended build/run (uses leiningen):
 
