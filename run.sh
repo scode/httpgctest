@@ -11,7 +11,7 @@ jvmopts () {
     echo -XX:GCPauseIntervalMillis=15
     echo -XX:+G1ParallelRSetUpdatingEnabled
     echo -XX:+G1ParallelRSetScanningEnabled
-    echo -Xmx50M
+    echo -Xmx4G
     echo -XX:G1ConfidencePercent=100
     echo -Xss256k
 }
