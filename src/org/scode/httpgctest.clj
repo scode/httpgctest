@@ -26,11 +26,15 @@
 (def data (ref ["data"]))
 
 (defn serve-gendata [request]
-  (dosync
-   (alter data #(concat %1 (repeat (count %1) "data"))))
+  (let [amount (let [amstr (:amount (:query-params request))]
+                 (if amstr
+                   (Integer/parseInt amstr)
+                   (count @data)))]
+    (dosync
+     (alter data #(concat %1 (repeat amount "data"))))
   {:status 200
    :headers {}
-   :body (str "size is now " (count @data))})
+   :body (str "size is now " (count @data))}))
 
 (defroutes greeter
   (GET "/gengarbage"
