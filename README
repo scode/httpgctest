@@ -1,0 +1,22 @@
+Simple HTTP server to experimenting with GC behavior.
+
+Intended build/run (uses leiningen):
+
+  lein deps
+  lein uberjar
+  ./run.sh
+
+Then:
+
+  ab -k -c 100 -n 200000 http://localhost:9191/gengarbage
+
+You may use:
+
+  http://localhost:9191/gendata
+
+to double the amount of permanent data kept on the keap (or specify
+"amount" parameter). To drop permanent data, request:
+
+  http://localhost:9191/dropdata
+
+
