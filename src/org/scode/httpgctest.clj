@@ -29,12 +29,12 @@
   (let [amount (let [amstr (:amount (:query-params request))]
                  (if amstr
                    (Integer/parseInt amstr)
-                   (count @data)))]
+                   (max 1 (count @data))))]
     (dosync
      (alter data #(concat %1 (repeat amount "data"))))
-  {:status 200
-   :headers {}
-   :body (str "size is now " (count @data))}))
+    {:status 200
+     :headers {}
+     :body (str "size is now " (count @data) " after adding " amount)}))
 
 (defn serve-dropdata [request]
   (let [old-size (count @data)]
