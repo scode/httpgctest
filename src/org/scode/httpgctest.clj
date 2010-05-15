@@ -38,10 +38,13 @@
 
 (defn serve-dropdata [request]
   (let [old-size (count @data)]
-    (dosync (alter data (fn [d] {})))
+    (if (contains? (:query-params request) :ratio)
+      (let [ratio (Double/parseDouble (:ratio (:query-params request)))]
+        (dosync (alter data (fn [old] (filter (fn [e] (> (rand) ratio)) old)))))
+      (dosync (alter data (fn [d] {}))))
     {:status 200
      :headers {}
-     :body (str "dropped " old-size)}))
+     :body (str "dropped " (- old-size (count @data)))}))
 
 (defroutes greeter
   (GET "/gengarbage"
