@@ -25,13 +25,23 @@
 
 (def data (ref #{}))
 
+(defn make-random-data
+  []
+  (let [r (rand)]
+    {:rand r
+     :str (str r
+               " a fairly long semi-unique string that is hopefully not very small in"
+               " comparison to the set structure itself, thus making this test a bit"
+               " more useful in testing gc behavior. this string plus the map we are"
+               " returning should hopefully be enough")}))
+
 (defn serve-gendata [request]
   (let [amount (let [amstr (:amount (:query-params request))]
                  (if amstr
                    (Integer/parseInt amstr)
                    (max 1 (count @data))))]
     (dosync
-     (alter data (fn [d] (apply conj d (map (fn [f] (f)) (repeat amount #(str (rand) "data")))))))
+     (alter data (fn [d] (apply conj d (map (fn [f] (f)) (repeat amount #(make-random-data)))))))
     {:status 200
      :headers {}
      :body (str "size is now " (count @data) " after adding " amount)}))
