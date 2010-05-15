@@ -44,7 +44,7 @@ jvmopts () {
     echo -Djava.net.preferIPv4Stack=true
     echo -XX:+PrintGC
     echo -XX:+PrintGCTimeStamps
-    echo -XX:-PrintCommandLineFlags
+    echo -XX:+PrintCommandLineFlags
     echo -Xms50M
     echo -Xmx4G
     echo -Xss256k
