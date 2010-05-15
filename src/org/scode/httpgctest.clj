@@ -23,7 +23,7 @@
      :headers {}
      :body "Garbage all around."}))
 
-(def data (ref ["data"]))
+(def data (ref #{}))
 
 (defn serve-gendata [request]
   (let [amount (let [amstr (:amount (:query-params request))]
@@ -31,7 +31,7 @@
                    (Integer/parseInt amstr)
                    (max 1 (count @data))))]
     (dosync
-     (alter data #(concat %1 (repeat amount "data"))))
+     (alter data (fn [d] (apply conj d (map (fn [f] (f)) (repeat amount #(str (rand) "data")))))))
     {:status 200
      :headers {}
      :body (str "size is now " (count @data) " after adding " amount)}))
@@ -40,8 +40,16 @@
   (let [old-size (count @data)]
     (if (contains? (:query-params request) :ratio)
       (let [ratio (Double/parseDouble (:ratio (:query-params request)))]
-        (dosync (alter data (fn [old] (filter (fn [e] (> (rand) ratio)) old)))))
-      (dosync (alter data (fn [d] {}))))
+        (dosync (alter data (fn [old] (loop [data old
+                                             tail (seq old)]
+                                        (if (seq tail)
+                                          (if (< (rand) ratio)
+                                            (recur (disj data (first tail))
+                                                   (rest tail))
+                                            (recur data
+                                                   (rest tail)))
+                                          data))))))
+      (dosync (alter data (fn [_] #{}))))
     {:status 200
      :headers {}
      :body (str "dropped " (- old-size (count @data)))}))
