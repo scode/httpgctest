@@ -45,6 +45,11 @@ jvmopts () {
     echo -XX:+PrintGC
     echo -XX:+PrintGCTimeStamps
     echo -XX:+PrintCommandLineFlags
+
+    if ! [ -z "$HTTPGCTEST_LOGGC" ]
+    then
+        echo -Xloggc:$HTTPGCTEST_LOGGC
+    fi
     echo -Xms50M
     echo -Xmx4G
     echo -Xss256k
