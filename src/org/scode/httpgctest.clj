@@ -33,7 +33,8 @@
                " a fairly long semi-unique string that is hopefully not very small in"
                " comparison to the set structure itself, thus making this test a bit"
                " more useful in testing gc behavior. this string plus the map we are"
-               " returning should hopefully be enough")}))
+               " returning should hopefully be enough")
+     :frag-grendade (apply str r (repeat (* (rand) 25) "kaboom"))}))
 
 (defn serve-gendata [request]
   (let [amount (let [amstr (:amount (:query-params request))]
