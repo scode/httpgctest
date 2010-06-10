@@ -14,21 +14,26 @@ jvmopts () {
     echo -XX:+UnlockDiagnosticVMOptions
 
     #echo -Xmaxf=50
-    #echo -Xminf=10
+    #echo -Xminf=30
     #echo -XX:GCTimeRatio=1
     #echo -XX:-UseAdaptiveSizePolicy
     #echo -XX:+PrintTenuringDistribution
     #echo -XX:+PrintCompilation
     #echo -XX:G1ConfidencePercent=100#
     #echo -XX:G1GCPercent=100
+    #echo -XX:G1YoungGenSize=50m
+    #echo -XX:NewSize=15m
+    #echo -XX:MaxNewSize=15m
+    #echo -XX:+PrintTenuringDistribution
 
     if [ "$HTTPGCTEST_COLLECTOR" = "g1" ]
     then
         echo -XX:+UseG1GC
-        echo -XX:MaxGCPauseMillis=10
-        echo -XX:GCPauseIntervalMillis=15
-        echo -XX:+G1ParallelRSetUpdatingEnabled
-        echo -XX:+G1ParallelRSetScanningEnabled
+        echo -XX:MaxGCPauseMillis=50
+        echo -XX:GCPauseIntervalMillis=75
+        echo -XX:G1PrintRegionLivenessInfo=1000
+        #echo -XX:+G1ParallelRSetUpdatingEnabled
+        #echo -XX:+G1ParallelRSetScanningEnabled
     elif [ "$HTTPGCTEST_COLLECTOR" = "cms" ]
     then
         echo -XX:+UseConcMarkSweepGC
