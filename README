@@ -19,4 +19,9 @@ to double the amount of permanent data kept on the keap (or specify
 
   http://localhost:9191/dropdata
 
+You can use 'ratio' and 'amount parameters. One way to generate steady
+state is to repeatedly do something like:
+
+  curl 'http://localhost:9191/dropdata?ratio=0.10'
+  curl 'http://localhost:9191/gendata?amount=10000'
 
