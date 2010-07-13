@@ -1,16 +1,18 @@
-Simple HTTP server indended for experimenting with GC behavior.
+Simple HTTP server indended for experimenting with GC behavior. There
+is also a run.sh script intended to be a convenient way to run it with
+different VM options. Certain actions are taken by submitting HTTP
+requests to it once it is started.
 
-Easiest way to run it (assumes you have maven2 installed) plainly
-without particular VM options is:
+To run it without any particular Java VM options and using whatever
+Java maven uses:
 
   mvn compile
   mvn clojure:run
 
-Easiest way to produce an executable jar and run it using "./run.sh"
-is:
+Easiest way to run it with run.sh is:
 
   mvn package
-  JAVA_HOME=... ./run.sh
+  JAVA_HOME=... HTTPGCTEST_COLLECTOR="g1" ./run.sh
 
 If you want to drive the generation of transient data, you may wish to
 use something like ab:
