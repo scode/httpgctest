@@ -10,7 +10,7 @@ Easiest way to produce an executable jar and run it using "./run.sh"
 is:
 
   mvn package
-  ./run.sh
+  JAVA_HOME=... ./run.sh
 
 If you want to drive the generation of transient data, you may wish to
 use something like ab:
