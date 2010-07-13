@@ -56,8 +56,8 @@ jvmopts () {
         echo -Xloggc:$HTTPGCTEST_LOGGC
     fi
     echo -Xms50M
-    echo -Xmx4G
+    echo -Xmx3G
     echo -Xss256k
 }
 
-$JAVA_HOME/bin/java $(jvmopts) -jar target/target/httpgctest-1.0-SNAPSHOT.jar
+$JAVA_HOME/bin/java $(jvmopts) -jar target/httpgctest-1.0-SNAPSHOT.jar
