@@ -60,4 +60,4 @@ jvmopts () {
     echo -Xss256k
 }
 
-$JAVA_HOME/bin/java $(jvmopts) -jar httpgctest-standalone.jar
+$JAVA_HOME/bin/java $(jvmopts) -jar target/target/httpgctest-1.0-SNAPSHOT.jar
