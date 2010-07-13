@@ -1,18 +1,25 @@
 Simple HTTP server indended for experimenting with GC behavior.
 
-Intended build/run (uses leiningen):
+Easiest way to run it (assumes you have maven2 installed) plainly
+without particular VM options is:
 
-  lein deps
-  lein uberjar
+  mvn compile
+  mvn clojure:run
+
+Easiest way to produce an executable jar and run it using "./run.sh"
+is:
+
+  mvn package
   ./run.sh
 
-Then:
+If you want to drive the generation of transient data, you may wish to
+use something like ab:
 
   ab -k -c 100 -n 200000 http://localhost:9191/gengarbage
 
-You may use:
+In order to generate persistent data:
 
-  http://localhost:9191/gendata
+  curl http://localhost:9191/gendata
 
 to double the amount of permanent data kept on the keap (or specify
 "amount" parameter). To drop permanent data, request:
