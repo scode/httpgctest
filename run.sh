@@ -25,8 +25,8 @@ jvmopts () {
     #echo -XX:NewSize=15m
     #echo -XX:MaxNewSize=15m
     #echo -XX:+PrintTenuringDistribution
-    #echo -XX:+PrintHeapAtGC
-    #echo -XX:+PrintHeapAtGCExtended
+    echo -XX:+PrintHeapAtGC
+    echo -XX:+PrintHeapAtGCExtended
 
     if [ "$HTTPGCTEST_COLLECTOR" = "g1" ]
     then
@@ -63,7 +63,7 @@ jvmopts () {
         echo -Xloggc:$HTTPGCTEST_LOGGC
     fi
     echo -Xms50M
-    echo -Xmx3G
+    echo -Xmx2G
     echo -Xss256k
 }
 
