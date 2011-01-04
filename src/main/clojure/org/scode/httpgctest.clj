@@ -2,7 +2,7 @@
   (:gen-class)
   (:require [clojure.contrib.duck-streams :as duck-streams])
   (:use [compojure]
-	        [compojure.http response])
+        [compojure.http response])
   (:import (java.io ByteArrayOutputStream
                     ByteArrayInputStream
                     FileInputStream
