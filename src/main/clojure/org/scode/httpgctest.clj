@@ -1,8 +1,9 @@
 (ns org.scode.httpgctest
   (:gen-class)
   (:require [clojure.contrib.duck-streams :as duck-streams])
-  (:use [compojure]
-        [compojure.http response])
+  (:use compojure.core
+        compojure.response
+        ring.adapter.jetty)
   (:import (java.io ByteArrayOutputStream
                     ByteArrayInputStream
                     FileInputStream
@@ -65,7 +66,7 @@
      :headers {}
      :body (str "dropped " (- old-size (count @data)))}))
 
-(defroutes greeter
+(defroutes our-routes
   (GET "/gengarbage"
        serve-gengarbage)
   (GET "/gendata"
@@ -74,6 +75,5 @@
        serve-dropdata))
 
 (defn -main [& args]
-  (run-server {:port 9191}
-              "/*" (servlet greeter)))
+  (run-jetty our-routes {:port 9191}))
 

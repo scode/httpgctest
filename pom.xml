@@ -23,6 +23,16 @@
       <version>0.5.3</version>
     </dependency>
     <dependency>
+      <groupId>ring</groupId>
+      <artifactId>ring-core</artifactId>
+      <version>0.3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>ring</groupId>
+      <artifactId>ring-jetty-adapter</artifactId>
+      <version>0.3.4</version>
+    </dependency>
+    <dependency>
       <!-- For mvn clojure:repl -->
       <groupId>jline</groupId>
       <artifactId>jline</artifactId>
