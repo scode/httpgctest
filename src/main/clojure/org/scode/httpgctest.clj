@@ -38,7 +38,8 @@
      :frag-grendade (apply str r (repeat (* (rand) 25) "kaboom"))}))
 
 (defn serve-gendata [request]
-  (let [amount (let [amstr (:amount (:query-params request))]
+  (println request)
+  (let [amount (let [amstr ((:query-params request) "amount")]
                  (if amstr
                    (Integer/parseInt amstr)
                    (max 1 (count @data))))]
@@ -50,8 +51,8 @@
 
 (defn serve-dropdata [request]
   (let [old-size (count @data)]
-    (if (contains? (:query-params request) :ratio)
-      (let [ratio (Double/parseDouble (:ratio (:query-params request)))]
+    (if (contains? (:query-params request) "ratio")
+      (let [ratio (Double/parseDouble ((:query-params request) "ratio"))]
         (dosync (alter data (fn [old] (loop [data old
                                              tail (seq old)]
                                         (if (seq tail)
@@ -67,11 +68,11 @@
      :body (str "dropped " (- old-size (count @data)))}))
 
 (defroutes our-routes
-  (GET "/gengarbage"
+  (GET "/gengarbage" []
        serve-gengarbage)
-  (GET "/gendata"
+  (GET "/gendata" []
        serve-gendata)
-  (GET "/dropdata"
+  (GET "/dropdata" []
        serve-dropdata))
 
 (defn -main [& args]
