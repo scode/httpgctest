@@ -33,9 +33,10 @@ jvmopts () {
         echo -XX:+UseG1GC
         echo -XX:MaxGCPauseMillis=50
         echo -XX:GCPauseIntervalMillis=75
-        echo -XX:+G1PrintParCleanupStats
-        echo -XX:G1PolicyVerbose=1
-        echo -XX:+PrintGCDetails
+        #echo -XX:G1RSetSparseRegionEntries=500
+        #echo -XX:+G1PrintParCleanupStats
+        #echo -XX:G1PolicyVerbose=1
+        #echo -XX:+PrintGCDetails
         #echo -XX:G1PrintRegionLivenessInfo=5000
         #echo -XX:+PrintHeapAtGC
         #echo -XX:+PrintHeapAtGCExtended
@@ -44,6 +45,8 @@ jvmopts () {
     elif [ "$HTTPGCTEST_COLLECTOR" = "cms" ]
     then
         echo -XX:+UseConcMarkSweepGC
+        #echo -XX:+CMSIncrementalMode
+        echo -XX:+PrintGCDetails
     elif [ "$HTTPGCTEST_COLLECTOR" = "throughput" ]
     then
         echo >/dev/null #prevent syntax error
