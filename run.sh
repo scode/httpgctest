@@ -25,8 +25,8 @@ jvmopts () {
     #echo -XX:NewSize=15m
     #echo -XX:MaxNewSize=15m
     #echo -XX:+PrintTenuringDistribution
-    echo -XX:+PrintHeapAtGC
-    echo -XX:+PrintHeapAtGCExtended
+    #echo -XX:+PrintHeapAtGC
+    #echo -XX:+PrintHeapAtGCExtended
 
     if [ "$HTTPGCTEST_COLLECTOR" = "g1" ]
     then
@@ -38,8 +38,6 @@ jvmopts () {
         #echo -XX:G1PolicyVerbose=1
         #echo -XX:+PrintGCDetails
         #echo -XX:G1PrintRegionLivenessInfo=5000
-        #echo -XX:+PrintHeapAtGC
-        #echo -XX:+PrintHeapAtGCExtended
         #echo -XX:+G1ParallelRSetUpdatingEnabled
         #echo -XX:+G1ParallelRSetScanningEnabled
     elif [ "$HTTPGCTEST_COLLECTOR" = "cms" ]
